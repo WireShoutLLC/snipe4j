@@ -1,5 +1,5 @@
 package com.wireshout.snipe4j;
 
 public class Depreciation {
-	//This is not in the API yet... Needs to be
+	//Need to do a cross ref. Can be accessed at /depreciations
 }

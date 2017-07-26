@@ -13,7 +13,7 @@ public class Location extends CheckoutLocation {
 	private int assets_checkedout;
 	private int assets_default;
 	private ArrayList<Asset> assets;
-	private Location parent_id; //API returns this as a number in a string
+	private Location parent_id;
 	private ArrayList<Location> children;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;

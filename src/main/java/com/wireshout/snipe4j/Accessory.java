@@ -1,8 +1,8 @@
 package com.wireshout.snipe4j;
 
-//COMPARED WITH API
+import java.time.LocalDateTime;
 
-public class Accessory implements Checkoutable {
+public class Accessory implements Checkoutable, SnipeObject {
 	private int id;
 	private String name;
 	private Company company;
@@ -16,20 +16,7 @@ public class Accessory implements Checkoutable {
 	private String purchase_cost;
 	private String order_number;
 	private int min_qty; //0 makes this null, otherwise API returns a string with a number
-	//These might be merged into an interface
-	/* "created_at": {
-        "datetime": "2017-07-25 12:26:44",
-        "formatted": "2017-07-25 12:26PM"
-    },
-    "updated_at": {
-        "datetime": "2017-07-25 12:31:35",
-        "formatted": "2017-07-25 12:31PM"
-    },
-    "available_actions": {
-        "checkout": true,
-        "checkin": false,
-        "update": true,
-        "delete": true
-    },
-    "user_can_checkout": true */
+	private LocalDateTime created_at;
+	private LocalDateTime updated_at;
+	private boolean user_can_checkout;
 }

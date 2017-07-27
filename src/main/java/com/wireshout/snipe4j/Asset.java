@@ -45,4 +45,9 @@ public class Asset extends CheckoutLocation implements Checkoutable {
 	public boolean checkin(String note) {
 		return false;
 	}
+
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

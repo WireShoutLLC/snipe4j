@@ -1,7 +1,16 @@
 package com.wireshout.snipe4j;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 public class Asset extends CheckoutLocation implements Checkoutable {
 	private int id;
@@ -33,6 +42,23 @@ public class Asset extends CheckoutLocation implements Checkoutable {
 	//private boolean requestable; //This seems to have been removed?
 	//TODO: assigned_to - need to figure out to what objects can an asset be checked out to
 	
+	public Asset(SnipeInstance snipeInstance, int id) throws IllegalStateException, IOException {
+		HttpResponse response = snipeInstance.makeGetRequest("hardware/" + id);
+		
+		System.out.println("Response Code : "
+                + response.getStatusLine().getStatusCode());
+
+		BufferedReader rd = new BufferedReader(
+			new InputStreamReader(response.getEntity().getContent()));
+		
+		StringBuffer result = new StringBuffer();
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			result.append(line);
+		}
+		System.out.println(result);
+	}
+
 	public boolean checkout(CheckoutLocation location) {
 		//TODO: Implement note, expected_checkin, checkout_at, and name
 		return false;

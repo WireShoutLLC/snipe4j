@@ -1,11 +1,7 @@
 package com.wireshout.snipe4j;
 
-public class Category {
-	private int id;
-	private String name;
+public class Category extends SnipeObject {
 	private CategoryType type;
-	private String created_at;
-	private String updated_at;
 	private boolean use_default_eula;
 	private boolean require_acceptance;
 	//private boolean checkin_email; //This looks like it's been removed?

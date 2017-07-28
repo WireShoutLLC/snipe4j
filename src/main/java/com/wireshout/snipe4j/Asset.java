@@ -11,10 +11,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 
-public class Asset extends CheckoutLocation implements Checkoutable {
-	private int id;
-	private String name;
+public class Asset extends SnipeObject implements Checkoutable {
 	private String asset_tag;
 	private String serial;
 	private StatusLabel status_label;
@@ -33,8 +34,6 @@ public class Asset extends CheckoutLocation implements Checkoutable {
 	private String warranty; //This is a string "<n> months"
 	private LocalDate warranty_expires; //Requires purchase_date to be set
 	private LocalDate purchase_date;
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
 	private LocalDateTime last_checkout;
 	private LocalDate expected_checkin;
 	private String purchase_cost;
@@ -42,38 +41,7 @@ public class Asset extends CheckoutLocation implements Checkoutable {
 	//private boolean requestable; //This seems to have been removed?
 	//TODO: assigned_to - need to figure out to what objects can an asset be checked out to
 	
-	public Asset(SnipeInstance snipeInstance, int id) throws IllegalStateException, IOException {
-		HttpResponse response = snipeInstance.makeGetRequest("hardware/" + id);
-		
-		System.out.println("Response Code : "
-                + response.getStatusLine().getStatusCode());
-
-		BufferedReader rd = new BufferedReader(
-			new InputStreamReader(response.getEntity().getContent()));
-		
-		StringBuffer result = new StringBuffer();
-		String line = "";
-		while ((line = rd.readLine()) != null) {
-			result.append(line);
-		}
-		System.out.println(result);
-	}
-
-	public boolean checkout(CheckoutLocation location) {
-		//TODO: Implement note, expected_checkin, checkout_at, and name
-		return false;
-	}
-	
-	public boolean checkin() {
-		return false;
-	}
-	
-	public boolean checkin(String note) {
-		return false;
-	}
-
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
+	public Asset(int id, String name, LocalDateTime created_at, LocalDateTime updated_at) {
+		super(id, name, created_at, updated_at);
 	}
 }

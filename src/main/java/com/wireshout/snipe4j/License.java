@@ -3,9 +3,7 @@ package com.wireshout.snipe4j;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class License implements Checkoutable {
-	private int id;
-	private String name;
+public class License extends SnipeObject implements Checkoutable {
 	private Company company;
 	private Manufacturer manufacturer;
 	private String product_key;
@@ -23,7 +21,5 @@ public class License implements Checkoutable {
 	private String license_email;
 	private boolean maintained;
 	private Supplier supplier;
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
 	private boolean user_can_checkout; //What is this for?
 }

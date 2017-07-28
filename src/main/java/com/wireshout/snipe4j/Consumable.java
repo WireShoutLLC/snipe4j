@@ -3,9 +3,7 @@ package com.wireshout.snipe4j;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Consumable implements Checkoutable {
-	private int id;
-	private String name;
+public class Consumable extends SnipeObject implements Checkoutable {
 	private Category category;
 	private Company company;
 	private String item_no;
@@ -18,8 +16,5 @@ public class Consumable implements Checkoutable {
 	private String purchase_cost;
 	private LocalDate purchase_date;
 	private int qty;
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
 	private boolean user_can_checkout; //What is this for?
-	
 }

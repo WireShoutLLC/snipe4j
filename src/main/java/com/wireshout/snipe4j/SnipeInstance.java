@@ -24,74 +24,48 @@ public class SnipeInstance {
 		apiKey = key;
 	}
 	
-	public Asset getAsset(int id) {
-		try {
-			return new Asset(this, id);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public String makeGetRequest(String endpoint) {
+		return makeGetRequest(endpoint, null);
 	}
-
-	public AssetList getAssetList() {
-		AssetList resultList = new AssetList();
-		
+	
+	public String makeGetRequest(String endpoint, String queryString) {
+		HttpResponse response = null;
+		String retResult = null;
 		try {
-			HttpResponse response;
 			HttpClient client = HttpClientBuilder.create().build();
-			HttpGet request = new HttpGet(url + "/hardware");
+			HttpGet request;
+			if(queryString == null || queryString.isEmpty()) {
+				System.out.println("* GET Request: " + url + "/" + endpoint);
+				request = new HttpGet(url + "/" + endpoint);
+			} else {
+				System.out.println("* GET Request: " + url + "/" + endpoint + "?" + queryString);
+				request = new HttpGet(url + "/" + endpoint + "?" + queryString);
+			}
 
 			request.addHeader("Authorization", "Bearer " + apiKey);
 			request.addHeader("Accept", "application/json");
-			
-			response = client.execute(request);
 
-			System.out.println("Response Code : "
-			                + response.getStatusLine().getStatusCode());
+			long startTime = System.currentTimeMillis();
+			response = client.execute(request);
+			System.out.println("Response Time: " + (System.currentTimeMillis() - startTime) + "ms");
+			System.out.println("Response Code: " + response.getStatusLine().getStatusCode());
 
 			BufferedReader rd = new BufferedReader(
 				new InputStreamReader(response.getEntity().getContent()));
-
+			
 			StringBuffer result = new StringBuffer();
 			String line = "";
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
 			}
-			System.out.println(result);
+			retResult = result.toString();
+			System.out.println("Response Body: " + retResult);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		return resultList;
-	}
-	
-	public HttpResponse makeGetRequest(String endpoint) {
-		return makeGetRequest(endpoint, null);
-	}
-	
-	public HttpResponse makeGetRequest(String endpoint, String queryString) {
-		HttpResponse response = null;
-		
-		try {
-			HttpClient client = HttpClientBuilder.create().build();
-			HttpGet request = new HttpGet(url + "/" + endpoint);
-
-			request.addHeader("Authorization", "Bearer " + apiKey);
-			request.addHeader("Accept", "application/json");
-			
-			response = client.execute(request);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return response;
+		return retResult;
 	}
 }

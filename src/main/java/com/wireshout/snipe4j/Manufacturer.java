@@ -2,9 +2,7 @@ package com.wireshout.snipe4j;
 
 import java.time.LocalDateTime;
 
-public class Manufacturer {
-	private int id;
-	private String name;
+public class Manufacturer extends SnipeObject {
 	private String url;
 	private String support_url;
 	private String support_phone;
@@ -13,6 +11,4 @@ public class Manufacturer {
 	private int licenses_count; //This is returned as a String, not an int
 	private int consumables_count; //This is returned as a String, not an int
 	private int accessories_count; //This is returned as a String, not an int
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
 }

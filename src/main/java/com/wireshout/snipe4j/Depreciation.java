@@ -2,10 +2,6 @@ package com.wireshout.snipe4j;
 
 import java.time.LocalDateTime;
 
-public class Depreciation {
-	private int id;
-	private String name;
+public class Depreciation extends SnipeObject {
 	private String months;
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
 }

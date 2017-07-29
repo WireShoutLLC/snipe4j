@@ -3,6 +3,8 @@ package com.wireshout.snipe4j;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+import org.json.simple.JSONObject;
+
 public class Accessory extends SnipeObject implements Checkoutable {
 	private Company company;
 	private Manufacturer manufacturer;
@@ -20,8 +22,27 @@ public class Accessory extends SnipeObject implements Checkoutable {
 	public Accessory(SnipeInstance snipe, int id) {
 		super(snipe, id, "accessories");
 		HashMap<String, Object> detail = refresh();
-		int company_id = (Integer) detail.get("company");
-		company = new Company(snipe, company_id);
+		if(detail.get("company") != null) {
+			JSONObject obj =  (JSONObject) detail.get("company");
+			Long tmpid = (Long) obj.get("id");
+			company = new Company(snipe, tmpid.intValue());
+		}
+		if(detail.get("manufacturer") != null) {
+			JSONObject obj =  (JSONObject) detail.get("manufacturer");
+			Long tmpid = (Long) obj.get("id");
+			manufacturer = new Manufacturer(snipe, tmpid.intValue());
+		}
+		if(detail.get("category") != null) {
+			JSONObject obj =  (JSONObject) detail.get("category");
+			Long tmpid = (Long) obj.get("id");
+			category = new Category(snipe, tmpid.intValue());
+		}
+		if(detail.get("location") != null) {
+			JSONObject obj =  (JSONObject) detail.get("location");
+			Long tmpid = (Long) obj.get("id");
+			location = new Location(snipe, tmpid.intValue());
+		}
+		//TODO: impl model_number, notes, qty, purchase stuff, order_number, min_qty, and user_can_checkout
 	}
 	
 	public Accessory(SnipeInstance snipe, AccessoryFactory create) {

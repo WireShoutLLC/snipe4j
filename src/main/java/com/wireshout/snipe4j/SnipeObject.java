@@ -64,13 +64,30 @@ abstract class SnipeObject {
 			e.printStackTrace();
 		}
 		
-		String rawName = (String) payload.get("name");
-		String rawCreatedTime = (String) payload.get("created_at"); //This is wrong, see issue #3799
-		String rawUpdatedTime = (String) payload.get("updated_at"); //This is wrong, see issue #3799
+		if(payload.containsKey("status") && (String) payload.get("status") == "error") {
+			throw new NullPointerException((String) payload.get("messages"));
+		}
 		
+		String rawName = (String) payload.get("name");
 		name = rawName;
-		created_at = SnipeDateTimeUtility.convert(rawCreatedTime);
-		updated_at = SnipeDateTimeUtility.convert(rawUpdatedTime);
+		
+		//This can be changed back after #3799 is fixed
+		Object objcreated = payload.get("created_at");
+		if(objcreated instanceof String) {
+			created_at = SnipeDateTimeUtility.convert((String) objcreated);
+		} else {
+			JSONObject jsoncreated = (JSONObject) objcreated;
+			created_at = SnipeDateTimeUtility.convert((String) jsoncreated.get("datetime"));
+		}
+		
+		//This can be changed back after #3799 is fixed
+		Object objupdated = payload.get("updated_at");
+		if(objupdated instanceof String) {
+			created_at = SnipeDateTimeUtility.convert((String) objupdated);
+		} else {
+			JSONObject jsonupdated = (JSONObject) objupdated;
+			created_at = SnipeDateTimeUtility.convert((String) jsonupdated.get("datetime"));
+		}
 		
 		return payload;
 	}

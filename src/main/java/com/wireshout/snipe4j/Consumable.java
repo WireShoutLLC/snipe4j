@@ -17,4 +17,13 @@ public class Consumable extends SnipeObject implements Checkoutable {
 	private LocalDate purchase_date;
 	private int qty;
 	private boolean user_can_checkout; //What is this for?
+	
+	public Consumable(SnipeInstance snipe, int id) {
+		super(snipe, id, "consumables");
+		refresh();
+	}
+	
+	public Consumable(SnipeInstance snipe, ConsumableFactory create) {
+		super(snipe, create);
+	}
 }

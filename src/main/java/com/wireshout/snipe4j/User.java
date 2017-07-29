@@ -2,6 +2,9 @@ package com.wireshout.snipe4j;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.simple.JSONObject;
 
 public class User extends SnipeObject {
 	private String first_name;
@@ -29,4 +32,36 @@ public class User extends SnipeObject {
     */
 	private LocalDateTime last_login;
 	private ArrayList<Group> groups;
+
+	public User(SnipeInstance snipe, int id) {
+		super(snipe, id, "users");
+		HashMap<String, Object> detail = refresh();
+		//TODO impl everything
+		if(detail.get("manager") != null) {
+			JSONObject obj =  (JSONObject) detail.get("manager");
+			Long tmpid = (Long) obj.get("id");
+			manager = new User(snipe, tmpid.intValue());
+		}
+		if(detail.get("location") != null) {
+			JSONObject obj =  (JSONObject) detail.get("location");
+			Long tmpid = (Long) obj.get("id");
+			location = new Location(snipe, tmpid.intValue());
+		}
+		if(detail.get("company") != null) {
+			JSONObject obj =  (JSONObject) detail.get("company");
+			Long tmpid = (Long) obj.get("id");
+			company = new Company(snipe, tmpid.intValue());
+		}
+		/* This needs fixed in the API
+		if(detail.get("department") != null) {
+			JSONObject obj =  (JSONObject) detail.get("department");
+			Long tmpid = (Long) obj.get("id");
+			department = new Department(snipe, tmpid.intValue());
+		}
+		*/
+	}
+	
+	public User(SnipeInstance snipe, UserFactory create) {
+		super(snipe, create);
+	}
 }

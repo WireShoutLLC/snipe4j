@@ -14,4 +14,13 @@ public class Component extends SnipeObject implements Checkoutable {
 	private String purchase_cost;
 	private int remaining; //Returned as an int.
 	private Company company;
+	
+	public Component(SnipeInstance snipe, int id) {
+		super(snipe, id, "components");
+		refresh();
+	}
+	
+	public Component(SnipeInstance snipe, CompanyFactory create) {
+		super(snipe, create);
+	}
 }

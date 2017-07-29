@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -37,12 +38,52 @@ public class Asset extends SnipeObject implements Checkoutable {
 	private LocalDateTime last_checkout;
 	private LocalDate expected_checkin;
 	private String purchase_cost;
+	//custom_fields found out off of model
 	
 	//private boolean requestable; //This seems to have been removed?
 	//TODO: assigned_to - need to figure out to what objects can an asset be checked out to
 	
 	public Asset(SnipeInstance snipe, int id) {
 		super(snipe, id, "hardware");
+		HashMap<String, Object> detail = refresh();
+		if(detail.get("company") != null) {
+			JSONObject obj =  (JSONObject) detail.get("company");
+			Long tmpid = (Long) obj.get("id");
+			company = new Company(snipe, tmpid.intValue());
+		}
+		if(detail.get("category") != null) {
+			JSONObject obj =  (JSONObject) detail.get("category");
+			Long tmpid = (Long) obj.get("id");
+			category = new Category(snipe, tmpid.intValue());
+		}
+		if(detail.get("location") != null) {
+			JSONObject obj =  (JSONObject) detail.get("location");
+			Long tmpid = (Long) obj.get("id");
+			location = new Location(snipe, tmpid.intValue());
+		}
+		if(detail.get("rtd_location") != null) {
+			JSONObject obj =  (JSONObject) detail.get("rtd_location");
+			Long tmpid = (Long) obj.get("id");
+			rtd_location = new Location(snipe, tmpid.intValue());
+		}
+		if(detail.get("status_label") != null) {
+			JSONObject obj =  (JSONObject) detail.get("status_label");
+			Long tmpid = (Long) obj.get("id");
+			status_label = new StatusLabel(snipe, tmpid.intValue());
+		}
+		/* This needs to get fixed in snipe since it's not a snipeobject type yet
+		if(detail.get("model") != null) {
+			JSONObject obj =  (JSONObject) detail.get("model");
+			Long tmpid = (Long) obj.get("id");
+			status_label = new Model(snipe, tmpid.intValue());
+		}
+		*/ 
+		if(detail.get("supplier") != null) {
+			JSONObject obj =  (JSONObject) detail.get("supplier");
+			Long tmpid = (Long) obj.get("id");
+			supplier = new Supplier(snipe, tmpid.intValue());
+		}
+		//TODO: impl asset_tag, serial, notes, order_number, image, assigned_to, warranty, warrenty_expires, purchase info, last_checkout, and expected_checkin
 	}
 	
 	public Asset(SnipeInstance snipe, AssetFactory create) {

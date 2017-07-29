@@ -1,6 +1,7 @@
 package com.wireshout.snipe4j;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class Supplier extends SnipeObject {
 	private String address;
@@ -14,4 +15,14 @@ public class Supplier extends SnipeObject {
 	private String contact;
 	private int assets_count;
 	private int licenses_count;
+
+	public Supplier(SnipeInstance snipe, int id) {
+		super(snipe, id, "suppliers");
+		HashMap<String, Object> detail = refresh();
+		//TODO impl everything
+	}
+	
+	public Supplier(SnipeInstance snipe, SupplierFactory create) {
+		super(snipe, create);
+	}
 }

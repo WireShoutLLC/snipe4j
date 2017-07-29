@@ -41,7 +41,11 @@ public class Asset extends SnipeObject implements Checkoutable {
 	//private boolean requestable; //This seems to have been removed?
 	//TODO: assigned_to - need to figure out to what objects can an asset be checked out to
 	
-	public Asset(int id, String name, LocalDateTime created_at, LocalDateTime updated_at) {
-		super(id, name, created_at, updated_at);
+	public Asset(SnipeInstance snipe, int id) {
+		super(snipe, id);
+	}
+	
+	public Asset(SnipeInstance snipe, AssetFactory create) {
+		super(snipe, create);
 	}
 }

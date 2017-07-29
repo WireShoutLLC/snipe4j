@@ -21,7 +21,6 @@ abstract class SnipeObject {
 		id = const_id;
 		endpoint = const_endpoint;
 		deleted = false;
-		refresh(endpoint);
 	}
 
 	public SnipeObject(SnipeInstance conn_snipe, SnipeObjectFactory create) {
@@ -54,11 +53,11 @@ abstract class SnipeObject {
 		return deleted;
 	}
 	
-	protected HashMap<String, Object> refresh(String endpoint) {
+	protected HashMap<String, Object> refresh() {
 		String requestOutput = snipe.makeGetRequest(endpoint + "/" + getId());
 		
 		JSONParser parser = new JSONParser();
-		JSONObject payload = null;
+		HashMap<String, Object> payload = null;
 		try {
 			payload = (JSONObject) parser.parse(requestOutput);
 		} catch (ParseException e) {
@@ -66,14 +65,14 @@ abstract class SnipeObject {
 		}
 		
 		String rawName = (String) payload.get("name");
-		String rawCreatedTime = (String) payload.get("created_at");
-		String rawUpdatedTime = (String) payload.get("updated_at");
+		String rawCreatedTime = (String) payload.get("created_at"); //This is wrong, see issue #3799
+		String rawUpdatedTime = (String) payload.get("updated_at"); //This is wrong, see issue #3799
 		
 		name = rawName;
 		created_at = SnipeDateTimeUtility.convert(rawCreatedTime);
 		updated_at = SnipeDateTimeUtility.convert(rawUpdatedTime);
 		
-		return null;
+		return payload;
 	}
 	
 	protected boolean delete() {

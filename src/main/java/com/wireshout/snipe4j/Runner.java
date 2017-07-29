@@ -16,6 +16,7 @@ public class Runner {
 		String apiEndpoint = applicationProps.getProperty("apiEndpoint");
 		String apiKey = applicationProps.getProperty("apiKey");
 		SnipeInstance mims = new SnipeInstance(apiEndpoint, apiKey);
-		Company singleCompany = new Company(mims, 3);
+		//Company singleCompany = new Company(mims, 3);
+		Accessory singleAccessory = new Accessory(mims, 1);
 	}
 }

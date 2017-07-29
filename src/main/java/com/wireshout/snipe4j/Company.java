@@ -3,7 +3,7 @@ package com.wireshout.snipe4j;
 public class Company extends SnipeObject {
 	public Company(SnipeInstance snipe, int id) {
 		super(snipe, id, "companies");
-
+		refresh();
 	}
 	
 	public Company(SnipeInstance snipe, CompanyFactory create) {

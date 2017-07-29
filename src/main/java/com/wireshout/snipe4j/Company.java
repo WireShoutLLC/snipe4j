@@ -1,7 +1,12 @@
 package com.wireshout.snipe4j;
 
-import java.time.LocalDateTime;
-
 public class Company extends SnipeObject {
+	public Company(SnipeInstance snipe, int id) {
+		super(snipe, id, "companies");
+
+	}
 	
+	public Company(SnipeInstance snipe, CompanyFactory create) {
+		super(snipe, create);
+	}
 }

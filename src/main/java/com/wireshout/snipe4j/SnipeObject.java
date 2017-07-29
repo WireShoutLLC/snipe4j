@@ -1,6 +1,11 @@
 package com.wireshout.snipe4j;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 abstract class SnipeObject {
 	private SnipeInstance snipe;
@@ -8,21 +13,23 @@ abstract class SnipeObject {
 	private String name;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
+	private String endpoint;
+	private boolean deleted;
 	
-	protected SnipeObject(SnipeInstance conn_snipe, int const_id) {
+	protected SnipeObject(SnipeInstance conn_snipe, int const_id, String const_endpoint) {
 		snipe = conn_snipe;
-		setId(const_id);
+		id = const_id;
+		endpoint = const_endpoint;
+		deleted = false;
+		refresh(endpoint);
 	}
 
 	public SnipeObject(SnipeInstance conn_snipe, SnipeObjectFactory create) {
 		snipe = conn_snipe;
+		//TODO
 	}
 
 	public int getId() {
-		return id;
-	}
-
-	private int setId(int id) {
 		return id;
 	}
 	
@@ -36,12 +43,47 @@ abstract class SnipeObject {
 	}
 	
 	public LocalDateTime getCreatedAt() {
-		//SnipeDateTimeUtility.convert(createdString)
 		return created_at;
 	}
 	
 	public LocalDateTime getUpdatedAt() {
-		//SnipeDateTimeUtility.convert(updatedString)
 		return updated_at;
+	}
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+	
+	protected HashMap<String, Object> refresh(String endpoint) {
+		String requestOutput = snipe.makeGetRequest(endpoint + "/" + getId());
+		
+		JSONParser parser = new JSONParser();
+		JSONObject payload = null;
+		try {
+			payload = (JSONObject) parser.parse(requestOutput);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		String rawName = (String) payload.get("name");
+		String rawCreatedTime = (String) payload.get("created_at");
+		String rawUpdatedTime = (String) payload.get("updated_at");
+		
+		name = rawName;
+		created_at = SnipeDateTimeUtility.convert(rawCreatedTime);
+		updated_at = SnipeDateTimeUtility.convert(rawUpdatedTime);
+		
+		return null;
+	}
+	
+	protected boolean delete() {
+		boolean requestOutput = snipe.makeDeleteRequest(endpoint + "/" + getId());
+		
+		name = null;
+		created_at = null;
+		updated_at = null;
+		deleted = true;
+		
+		return requestOutput;
 	}
 }

@@ -42,7 +42,7 @@ public class Asset extends SnipeObject implements Checkoutable {
 	//TODO: assigned_to - need to figure out to what objects can an asset be checked out to
 	
 	public Asset(SnipeInstance snipe, int id) {
-		super(snipe, id);
+		super(snipe, id, "hardware");
 	}
 	
 	public Asset(SnipeInstance snipe, AssetFactory create) {

@@ -18,7 +18,8 @@ public class Runner {
 		SnipeInstance mims = new SnipeInstance(apiEndpoint, apiKey);
 		//Company singleCompany = new Company(mims, 3);
 		//Accessory singleAccessory = new Accessory(mims, 1);
-		Accessory singleAccessory2 = new Accessory(mims, 2);
+		AccessorySet allAccessories = new AccessorySet(mims);
+		//Accessory singleAccessory2 = new Accessory(mims, 2);
 		//Accessory singleAccessory3 = new Accessory(mims, 3);
 	}
 }

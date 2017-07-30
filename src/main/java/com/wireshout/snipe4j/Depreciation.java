@@ -12,8 +12,7 @@ public class Depreciation extends SnipeObject {
 		super(snipe, id, "depreciations");
 		HashMap<String, Object> detail = refresh();
 		if(detail.get("months") != null) {
-			JSONObject obj =  (JSONObject) detail.get("months");
-			months = (String) obj.get("id");
+			months = (String) detail.get("months");
 		}
 	}
 	

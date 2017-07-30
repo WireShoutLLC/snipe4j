@@ -39,7 +39,13 @@ abstract class SnipeObjectSet extends LinkedHashSet<SnipeObject> {
 			JSONArray array = (JSONArray) ((JSONObject) parser.parse(rawResponse)).get("rows");
 			for(Object o: array){
 				if (o instanceof JSONObject) {
-					int id = ((Long) ((JSONObject) o).get("id")).intValue();
+					Object obj = ((JSONObject) o).get("id");
+					int id = 0;
+					//TODO: This can be switched back after Bug #3802 is fixed
+					if(obj instanceof Long)
+						id = ((Long) obj).intValue();
+					else if(obj instanceof String)
+						id = Integer.parseInt((String) obj);
 					this.add((SnipeObject) creates.getConstructor(SnipeInstance.class,int.class).newInstance(snipe, id));
 				}
 			}

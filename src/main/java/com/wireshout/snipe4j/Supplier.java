@@ -13,6 +13,7 @@ public class Supplier extends SnipeObject {
 	private String phone;
 	private String email;
 	private String contact;
+	private String image;
 	private int assets_count;
 	private int licenses_count;
 

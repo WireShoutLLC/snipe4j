@@ -16,10 +16,23 @@ public class Runner {
 		String apiEndpoint = applicationProps.getProperty("apiEndpoint");
 		String apiKey = applicationProps.getProperty("apiKey");
 		SnipeInstance mims = new SnipeInstance(apiEndpoint, apiKey);
-		//Company singleCompany = new Company(mims, 3);
-		//Accessory singleAccessory = new Accessory(mims, 1);
-		AccessorySet allAccessories = new AccessorySet(mims);
-		//Accessory singleAccessory2 = new Accessory(mims, 2);
-		//Accessory singleAccessory3 = new Accessory(mims, 3);
+		
+		AccessorySet accessories = new AccessorySet(mims);
+		AssetSet assets = new AssetSet(mims);
+		CategorySet categories = new CategorySet(mims);
+		CompanySet companies = new CompanySet(mims);
+		ComponentSet components = new ComponentSet(mims);
+		ConsumableSet consumables = new ConsumableSet(mims);
+		DepartmentSet departments = new DepartmentSet(mims);
+		DepreciationSet depreciations = new DepreciationSet(mims);
+		//FieldSetSet???
+		GroupSet groups = new GroupSet(mims);
+		LicenseSet licenses = new LicenseSet(mims);
+		LocationSet locations = new LocationSet(mims);
+		ManufacturerSet manufacturers = new ManufacturerSet(mims);
+		ModelSet models = new ModelSet(mims);
+		StatusLabelSet statuslabels = new StatusLabelSet(mims);
+		SupplierSet suppliers = new SupplierSet(mims);
+		UserSet users = new UserSet(mims);
 	}
 }

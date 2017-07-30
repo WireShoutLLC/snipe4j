@@ -72,7 +72,10 @@ abstract class SnipeObject {
 		
 		//This can be changed back after #3799 is fixed
 		Object objcreated = payload.get("created_at");
-		if(objcreated instanceof String) {
+		if(objcreated == null) {
+			//This is annoying... need to figure something better out
+			created_at = null;
+		} else if(objcreated instanceof String) {
 			created_at = SnipeDateTimeUtility.convert((String) objcreated);
 		} else {
 			JSONObject jsoncreated = (JSONObject) objcreated;
@@ -81,11 +84,14 @@ abstract class SnipeObject {
 		
 		//This can be changed back after #3799 is fixed
 		Object objupdated = payload.get("updated_at");
-		if(objupdated instanceof String) {
-			created_at = SnipeDateTimeUtility.convert((String) objupdated);
+		if(objcreated == null) {
+			//This is annoying... need to figure something better out
+			updated_at = null;
+		} else if(objupdated instanceof String) {
+			updated_at = SnipeDateTimeUtility.convert((String) objupdated);
 		} else {
 			JSONObject jsonupdated = (JSONObject) objupdated;
-			created_at = SnipeDateTimeUtility.convert((String) jsonupdated.get("datetime"));
+			updated_at = SnipeDateTimeUtility.convert((String) jsonupdated.get("datetime"));
 		}
 		
 		return payload;

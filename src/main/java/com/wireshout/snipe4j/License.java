@@ -28,7 +28,7 @@ public class License extends SnipeObject implements Checkoutable {
 
 	
 	public License(SnipeInstance snipe, int id) {
-		super(snipe, id, "license");
+		super(snipe, id, "licenses");
 		HashMap<String, Object> detail = refresh();
 		if(detail.get("company") != null) {
 			JSONObject obj =  (JSONObject) detail.get("company");

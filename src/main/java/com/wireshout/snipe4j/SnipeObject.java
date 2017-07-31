@@ -50,8 +50,8 @@ abstract class SnipeObject {
 		return deleted;
 	}
 	
-	protected HashMap<String, Object> refresh() {
-		String requestOutput = snipe.makeGetRequest(getEndpoint() + "/" + getId());
+	protected HashMap<String, Object> refresh(String endpoint) {
+		String requestOutput = snipe.makeGetRequest(endpoint + "/" + getId());
 		
 		JSONParser parser = new JSONParser();
 		HashMap<String, Object> payload = null;
@@ -94,8 +94,8 @@ abstract class SnipeObject {
 		return payload;
 	}
 	
-	protected boolean delete() {
-		boolean requestOutput = snipe.makeDeleteRequest(getEndpoint() + "/" + getId());
+	protected boolean delete(String endpoint) {
+		boolean requestOutput = snipe.makeDeleteRequest(endpoint + "/" + getId());
 		
 		name = null;
 		created_at = null;

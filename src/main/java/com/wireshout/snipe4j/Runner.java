@@ -36,10 +36,13 @@ public class Runner {
 		UserSet users = new UserSet(mims); */
 		
 		//Test full lifecycle
-		CompanyFactory testFactory = new CompanyFactory("Test");
-		Company testCompany = (Company) testFactory.create(mims, Company.class);
-		System.out.println("New Company! ID: " + testCompany.getId());
-		boolean diditwork = testCompany.delete();
-		System.out.println("Did it delete? " + diditwork);
+		CategorySet categoryList = new CategorySet(mims);
+		CategoryFactory testFactory = new CategoryFactory("Test");
+		testFactory.setCategoryType(CategoryType.Accessory);
+		Category testObject = testFactory.create(mims);
+		System.out.println("New Category! ID: " + testObject.getId());
+		boolean diditwork = testObject.delete();
+		testObject = null;
+		System.out.println("Did it delete?    " + diditwork);
 	}
 }

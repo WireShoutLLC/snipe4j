@@ -26,18 +26,26 @@ public abstract class SnipeObjectFactory {
 		fields.addAll(custom);
 	}
 	
-	public SnipeObject create(SnipeInstance snipe, Class type) {
+	protected SnipeObject create(SnipeInstance snipe, Class type) {
 		SnipeObject create;
 		try {
 			String endpoint = (String) type.getMethod("getEndpoint").invoke(null, null);
 			SnipeResponse response = snipe.makePostRequest(endpoint, fields);
-			int id = response.getPostID();
-			create = (SnipeObject) type.getConstructor(SnipeInstance.class, int.class).newInstance(snipe, id);
-			return create;
+			if(response.wasSuccessful()) {
+				int id = response.getPostID();
+				create = (SnipeObject) type.getConstructor(SnipeInstance.class, int.class).newInstance(snipe, id);
+				return create;
+			} else {
+				return null;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return null;
+	}
+	
+	protected void add(NameValuePair field) {
+		fields.add(field);
 	}
 }

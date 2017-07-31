@@ -17,14 +17,18 @@ public class Category extends SnipeObject {
             "consumables_count": 0,
             "components_count": 0,
 	 */
-
+	private final static String ENDPOINT = "categories";
+	
 	public Category(SnipeInstance snipe, int id) {
-		super(snipe, id, "categories");
-		HashMap<String, Object> detail = refresh();
-		//TODO impl type, eula, req_acc
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
+	}
+
+	public static String getEndpoint() {
+		return ENDPOINT;
 	}
 	
-	public Category(SnipeInstance snipe, CategoryFactory create) {
-		super(snipe, create);
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

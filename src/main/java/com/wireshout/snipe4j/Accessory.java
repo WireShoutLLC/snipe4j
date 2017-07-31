@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.json.simple.JSONObject;
 
 public class Accessory extends SnipeObject implements Checkoutable {
+	public final static String ENDPOINT = "accessories";
+	
 	private Company company;
 	private Manufacturer manufacturer;
 	private String model_number; //This is NOT a Model object, just a String field
@@ -20,7 +22,7 @@ public class Accessory extends SnipeObject implements Checkoutable {
 	private boolean user_can_checkout;
 	
 	public Accessory(SnipeInstance snipe, int id) {
-		super(snipe, id, "accessories");
+		super(snipe, id, ENDPOINT);
 		HashMap<String, Object> detail = refresh();
 		if(detail.get("company") != null) {
 			JSONObject obj =  (JSONObject) detail.get("company");
@@ -47,5 +49,9 @@ public class Accessory extends SnipeObject implements Checkoutable {
 	
 	public Accessory(SnipeInstance snipe, AccessoryFactory create) {
 		super(snipe, create);
+	}
+	
+	public String getEndpoint() {
+		return ENDPOINT;
 	}
 }

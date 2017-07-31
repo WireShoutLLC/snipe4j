@@ -17,7 +17,7 @@ public class Runner {
 		String apiKey = applicationProps.getProperty("apiKey");
 		SnipeInstance mims = new SnipeInstance(apiEndpoint, apiKey);
 		
-		AccessorySet accessories = new AccessorySet(mims);
+		/* AccessorySet accessories = new AccessorySet(mims);
 		AssetSet assets = new AssetSet(mims);
 		CategorySet categories = new CategorySet(mims);
 		CompanySet companies = new CompanySet(mims);
@@ -33,6 +33,13 @@ public class Runner {
 		ModelSet models = new ModelSet(mims);
 		StatusLabelSet statuslabels = new StatusLabelSet(mims);
 		SupplierSet suppliers = new SupplierSet(mims);
-		UserSet users = new UserSet(mims);
+		UserSet users = new UserSet(mims); */
+		
+		//Test full lifecycle
+		CompanyFactory testFactory = new CompanyFactory("Test");
+		Company testCompany = (Company) testFactory.create(mims, Company.class);
+		System.out.println("New Company! ID: " + testCompany.getId());
+		boolean diditwork = testCompany.delete();
+		System.out.println("Did it delete? " + diditwork);
 	}
 }

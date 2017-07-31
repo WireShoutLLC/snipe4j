@@ -13,19 +13,16 @@ abstract class SnipeObject {
 	private String name;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-	private String endpoint;
 	private boolean deleted;
 	
-	protected SnipeObject(SnipeInstance conn_snipe, int const_id, String const_endpoint) {
+	protected SnipeObject(SnipeInstance conn_snipe, int const_id) {
 		snipe = conn_snipe;
 		id = const_id;
-		endpoint = const_endpoint;
 		deleted = false;
 	}
-
-	public SnipeObject(SnipeInstance conn_snipe, SnipeObjectFactory create) {
-		snipe = conn_snipe;
-		//TODO
+	
+	public static String getEndpoint() {
+		return null;
 	}
 
 	public int getId() {
@@ -54,7 +51,7 @@ abstract class SnipeObject {
 	}
 	
 	protected HashMap<String, Object> refresh() {
-		String requestOutput = snipe.makeGetRequest(endpoint + "/" + getId());
+		String requestOutput = snipe.makeGetRequest(getEndpoint() + "/" + getId());
 		
 		JSONParser parser = new JSONParser();
 		HashMap<String, Object> payload = null;
@@ -98,7 +95,7 @@ abstract class SnipeObject {
 	}
 	
 	protected boolean delete() {
-		boolean requestOutput = snipe.makeDeleteRequest(endpoint + "/" + getId());
+		boolean requestOutput = snipe.makeDeleteRequest(getEndpoint() + "/" + getId());
 		
 		name = null;
 		created_at = null;

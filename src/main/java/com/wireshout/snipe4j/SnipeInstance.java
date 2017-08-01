@@ -131,7 +131,7 @@ public class SnipeInstance {
 		try {
 			HttpClient client = HttpClientBuilder.create().build();
 			System.out.println("* DEL Request: " + url + "/" + endpoint);
-			HttpPost request = new HttpPost(url + "/" + endpoint);
+			HttpDelete request = new HttpDelete(url + "/" + endpoint);
 	
 			request.addHeader("Authorization", "Bearer " + apiKey);
 			request.addHeader("Accept", "application/json");

@@ -35,14 +35,24 @@ public class Runner {
 		SupplierSet suppliers = new SupplierSet(mims);
 		UserSet users = new UserSet(mims); */
 		
+
 		//Test full lifecycle
-		CategorySet categoryList = new CategorySet(mims);
-		CategoryFactory testFactory = new CategoryFactory("Test");
+		SupplierSet supplierList = new SupplierSet(mims);
+		SupplierFactory testFactory = new SupplierFactory("NewSupplier2");
+		Supplier testObject = testFactory.create(mims);
+		System.out.println("New Supplier! ID: " + testObject.getId());
+		boolean diditwork = testObject.delete();
+		testObject = null;
+		System.out.println("Did it delete?    " + diditwork);
+		
+		//Test full lifecycle
+		/*CategorySet categoryList = new CategorySet(mims);
+		CategoryFactory testFactory = new CategoryFactory("NewCategoryWhoDis3");
 		testFactory.setCategoryType(CategoryType.Accessory);
 		Category testObject = testFactory.create(mims);
 		System.out.println("New Category! ID: " + testObject.getId());
 		boolean diditwork = testObject.delete();
 		testObject = null;
-		System.out.println("Did it delete?    " + diditwork);
+		System.out.println("Did it delete?    " + diditwork);*/
 	}
 }

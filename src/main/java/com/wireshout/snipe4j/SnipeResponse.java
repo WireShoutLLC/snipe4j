@@ -10,18 +10,11 @@ import org.json.simple.parser.ParseException;
 
 public class SnipeResponse {
 	private HttpResponse response;
+	private String body = null;
 	
 	public SnipeResponse(HttpResponse const_response) {
 		response = const_response;
 		System.out.println("Response Code: " + getResponseCode());
-		System.out.println("Response Body: " + getResponseText());
-	}
-	
-	private int getResponseCode() {
-		return response.getStatusLine().getStatusCode();
-	}
-	
-	private String getResponseText() {
 		try {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			
@@ -30,11 +23,19 @@ public class SnipeResponse {
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
 			}
-			return result.toString();
+			body = result.toString();
 		} catch(Exception e) {
 			e.printStackTrace();
-			return "";
 		}
+		System.out.println("Response Body: " + getResponseText());
+	}
+	
+	private int getResponseCode() {
+		return response.getStatusLine().getStatusCode();
+	}
+	
+	private String getResponseText() {
+		return body;
 	}
 	
 	private boolean wasAPISuccess() {
@@ -42,15 +43,20 @@ public class SnipeResponse {
 		JSONObject payload = null;
 		try {
 			payload = (JSONObject) parser.parse(getResponseText());
+			if(payload.containsKey("status")) {
+				String status = (String) payload.get("status");
+				if(status.equals("success")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return true;
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		if(!payload.containsKey("status") || (payload.containsKey("status") && (String) payload.get("status") == "success")) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
 	
 	public boolean wasSuccessful() {

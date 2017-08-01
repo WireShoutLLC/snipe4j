@@ -3,6 +3,8 @@ package com.wireshout.snipe4j;
 import java.util.HashMap;
 
 public class Category extends SnipeObject {
+	private final static String ENDPOINT = "categories";
+	
 	private CategoryType type;
 	private boolean use_default_eula;
 	private boolean require_acceptance;
@@ -17,7 +19,6 @@ public class Category extends SnipeObject {
             "consumables_count": 0,
             "components_count": 0,
 	 */
-	private final static String ENDPOINT = "categories";
 	
 	public Category(SnipeInstance snipe, int id) {
 		super(snipe, id);

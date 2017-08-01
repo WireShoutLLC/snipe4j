@@ -15,9 +15,11 @@ public class Model extends SnipeObject {
 	private String notes;
 	private int eol; //TODO: This seems really horrible. Is returned when none is set as "None", or "n months" when it is set
 
+	private final static String ENDPOINT = "models";
+	
 	public Model(SnipeInstance snipe, int id) {
-		super(snipe, id, "models");
-		HashMap<String, Object> detail = refresh();
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
 		if(detail.get("manufacturer") != null) {
 			JSONObject obj =  (JSONObject) detail.get("manufacturer");
 			Long tmpid = (Long) obj.get("id");
@@ -33,10 +35,13 @@ public class Model extends SnipeObject {
 			Long tmpid = (Long) obj.get("id");
 			depreciation = new Depreciation(snipe, tmpid.intValue());
 		}
-		//TODO: impl model_number, notes, image, assets_count, fieldset, eol
+	}
+
+	public static String getEndpoint() {
+		return ENDPOINT;
 	}
 	
-	public Model(SnipeInstance snipe, ModelFactory create) {
-		super(snipe, create);
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

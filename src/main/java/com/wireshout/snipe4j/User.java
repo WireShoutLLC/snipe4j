@@ -7,6 +7,8 @@ import java.util.HashMap;
 import org.json.simple.JSONObject;
 
 public class User extends SnipeObject {
+	private final static String ENDPOINT = "users";
+	
 	private String first_name;
 	private String last_name;
 	private String username;
@@ -32,11 +34,10 @@ public class User extends SnipeObject {
     */
 	private LocalDateTime last_login;
 	private ArrayList<Group> groups;
-
+	
 	public User(SnipeInstance snipe, int id) {
-		super(snipe, id, "users");
-		HashMap<String, Object> detail = refresh();
-		//TODO impl everything
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
 		if(detail.get("manager") != null) {
 			JSONObject obj =  (JSONObject) detail.get("manager");
 			Long tmpid = (Long) obj.get("id");
@@ -60,8 +61,12 @@ public class User extends SnipeObject {
 		}
 		*/
 	}
+
+	public static String getEndpoint() {
+		return ENDPOINT;
+	}
 	
-	public User(SnipeInstance snipe, UserFactory create) {
-		super(snipe, create);
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

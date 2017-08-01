@@ -17,6 +17,8 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 public class Asset extends SnipeObject implements Checkoutable {
+	private final static String ENDPOINT = "hardware";
+	
 	private String asset_tag;
 	private String serial;
 	private StatusLabel status_label;
@@ -44,8 +46,8 @@ public class Asset extends SnipeObject implements Checkoutable {
 	//TODO: assigned_to - need to figure out to what objects can an asset be checked out to
 	
 	public Asset(SnipeInstance snipe, int id) {
-		super(snipe, id, "hardware");
-		HashMap<String, Object> detail = refresh();
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
 		if(detail.get("company") != null) {
 			JSONObject obj =  (JSONObject) detail.get("company");
 			Long tmpid = (Long) obj.get("id");
@@ -86,7 +88,11 @@ public class Asset extends SnipeObject implements Checkoutable {
 		//TODO: impl asset_tag, serial, notes, order_number, image, assigned_to, warranty, warrenty_expires, purchase info, last_checkout, and expected_checkin
 	}
 	
-	public Asset(SnipeInstance snipe, AssetFactory create) {
-		super(snipe, create);
+	public static String getEndpoint() {
+		return ENDPOINT;
+	}
+	
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

@@ -4,7 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.simple.JSONObject;
+
 public class Location extends SnipeObject {
+	private final static String ENDPOINT = "locations";
+	
 	private String address;
 	private String city;
 	private String state;
@@ -17,12 +21,15 @@ public class Location extends SnipeObject {
 	//UI shows ZIP
 	
 	public Location(SnipeInstance snipe, int id) {
-		super(snipe, id, "locations");
-		HashMap<String, Object> detail = refresh();
-		//TODO impl address things, asset number things, assets, parents, and children
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
+	}
+
+	public static String getEndpoint() {
+		return ENDPOINT;
 	}
 	
-	public Location(SnipeInstance snipe, LocationFactory create) {
-		super(snipe, create);
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

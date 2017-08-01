@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class Supplier extends SnipeObject {
+	private final static String ENDPOINT = "suppliers";
+	
 	private String address;
 	private String address2;
 	private String city;
@@ -18,12 +20,15 @@ public class Supplier extends SnipeObject {
 	private int licenses_count;
 
 	public Supplier(SnipeInstance snipe, int id) {
-		super(snipe, id, "suppliers");
-		HashMap<String, Object> detail = refresh();
-		//TODO impl everything
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
+	}
+
+	public static String getEndpoint() {
+		return ENDPOINT;
 	}
 	
-	public Supplier(SnipeInstance snipe, SupplierFactory create) {
-		super(snipe, create);
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

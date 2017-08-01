@@ -25,11 +25,11 @@ public class License extends SnipeObject implements Checkoutable {
 	private boolean maintained;
 	private Supplier supplier;
 	private boolean user_can_checkout; //What is this for?
-
+	private final static String ENDPOINT = "licenses";
 	
 	public License(SnipeInstance snipe, int id) {
-		super(snipe, id, "licenses");
-		HashMap<String, Object> detail = refresh();
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
 		if(detail.get("company") != null) {
 			JSONObject obj =  (JSONObject) detail.get("company");
 			Long tmpid = (Long) obj.get("id");
@@ -51,8 +51,12 @@ public class License extends SnipeObject implements Checkoutable {
 			manufacturer = new Manufacturer(snipe, tmpid.intValue());
 		}
 	}
+
+	public static String getEndpoint() {
+		return ENDPOINT;
+	}
 	
-	public License(SnipeInstance snipe, LicenseFactory create) {
-		super(snipe, create);
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

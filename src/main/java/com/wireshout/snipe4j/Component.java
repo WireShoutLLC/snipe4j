@@ -2,8 +2,11 @@ package com.wireshout.snipe4j;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class Component extends SnipeObject implements Checkoutable {
+	private final static String ENDPOINT = "components";
+	
 	private String serial_number;
 	private Location location;
 	private int qty; //This is returned as a string with a number in it
@@ -16,11 +19,15 @@ public class Component extends SnipeObject implements Checkoutable {
 	private Company company;
 	
 	public Component(SnipeInstance snipe, int id) {
-		super(snipe, id, "components");
-		refresh();
+		super(snipe, id);
+		HashMap<String, Object> detail = refresh(getEndpoint());
 	}
 	
-	public Component(SnipeInstance snipe, CompanyFactory create) {
-		super(snipe, create);
+	public static String getEndpoint() {
+		return ENDPOINT;
+	}
+	
+	public boolean delete() {
+		return super.delete(getEndpoint());
 	}
 }

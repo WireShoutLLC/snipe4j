@@ -8,16 +8,19 @@ import org.json.simple.JSONObject;
 public class Accessory extends SnipeObject implements Checkoutable {
 	private final static String ENDPOINT = "accessories";
 	
+	//Implemented
 	private Company company;
 	private Manufacturer manufacturer;
-	private String model_number; //This is NOT a Model object, just a String field
+	private String model_number;
 	private Category category;
 	private Location location;
 	private String notes;
-	private int qty; //API returns this as a string
+	private String order_number;
+	private int qty;
+	
+	//TODO: Implement
 	private String purchase_date; //TODO: make date/time format
 	private String purchase_cost;
-	private String order_number;
 	private int min_qty; //0 makes this null, otherwise API returns a string with a number
 	private boolean user_can_checkout;
 	
@@ -34,6 +37,15 @@ public class Accessory extends SnipeObject implements Checkoutable {
 			Long tmpid = (Long) obj.get("id");
 			manufacturer = new Manufacturer(snipe, tmpid.intValue());
 		}
+		if(detail.get("model_number") != null) {
+			model_number =  (String) detail.get("model_number");
+		}
+		if(detail.get("order_number") != null) {
+			order_number =  (String) detail.get("order_number");
+		}
+		if(detail.get("qty") != null) {
+			qty =  ((Long) detail.get("qty")).intValue();
+		}
 		if(detail.get("category") != null) {
 			JSONObject obj =  (JSONObject) detail.get("category");
 			Long tmpid = (Long) obj.get("id");
@@ -44,7 +56,9 @@ public class Accessory extends SnipeObject implements Checkoutable {
 			Long tmpid = (Long) obj.get("id");
 			location = new Location(snipe, tmpid.intValue());
 		}
-		//TODO: impl model_number, notes, qty, purchase stuff, order_number, min_qty, and user_can_checkout
+		if(detail.get("notes") != null) {
+			notes =  (String) detail.get("notes");
+		}
 	}
 	
 	public static String getEndpoint() {

@@ -5,7 +5,10 @@ import java.util.HashMap;
 public class Category extends SnipeObject {
 	private final static String ENDPOINT = "categories";
 	
+	//Implemented
 	private CategoryType type;
+	
+	//TODO: Implement
 	private boolean use_default_eula;
 	private boolean require_acceptance;
 	//private boolean checkin_email; //This looks like it's been removed?

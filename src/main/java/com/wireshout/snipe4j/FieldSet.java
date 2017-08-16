@@ -6,5 +6,5 @@ public class FieldSet {
 	private int id;
 	private String name;
 	private ArrayList<Field> fields;
-	private ArrayList<Model> models;
+	//private ArrayList<Model> models;
 }

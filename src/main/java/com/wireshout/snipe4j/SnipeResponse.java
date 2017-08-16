@@ -77,6 +77,9 @@ public class SnipeResponse {
 				JSONParser parser = new JSONParser();
 				JSONObject fullresp = (JSONObject) parser.parse(getResponseText());
 				JSONObject payload = (JSONObject) fullresp.get("payload");
+				if(payload.get("id") instanceof String) { //Temporary fix because some function calls return id in a string
+					return Integer.parseInt((String) payload.get("id"));
+				}
 				return ((Long) payload.get("id")).intValue();
 			} catch (ParseException e) {
 				e.printStackTrace();

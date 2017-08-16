@@ -20,7 +20,7 @@ public class User extends SnipeObject {
 	private String phone; //Not returned in the API
 	private String jobtitle;
 	private Company company;
-	private Department department;
+	//private Department department;
 	private String permissions; //This is weird...
 	private String employee_num;
 	private String notes;

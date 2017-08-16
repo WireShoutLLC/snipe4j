@@ -19,10 +19,10 @@ public class Accessory extends SnipeObject implements Checkoutable {
 	private int qty;
 	
 	//TODO: Implement
-	private String purchase_date; //TODO: make date/time format
-	private String purchase_cost;
-	private int min_qty; //0 makes this null, otherwise API returns a string with a number
-	private boolean user_can_checkout;
+	//private String purchase_date; //TODO: make date/time format
+	//private String purchase_cost;
+	//private int min_qty; //0 makes this null, otherwise API returns a string with a number
+	//private boolean user_can_checkout;
 	
 	public Accessory(SnipeInstance snipe, int id) {
 		super(snipe, id);

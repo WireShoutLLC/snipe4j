@@ -19,19 +19,21 @@ import org.json.simple.parser.JSONParser;
 public class Asset extends SnipeObject implements Checkoutable {
 	private final static String ENDPOINT = "hardware";
 	
+	//Implemented
 	private String asset_tag;
 	private String serial;
 	private StatusLabel status_label;
 	private Category category;
 	private Model model;
-	private String model_number;
-	//private Manufacturer manufacturer; //This is found out based on Model
 	private Supplier supplier;
 	private String notes;
+	private Location rtd_location;
+	private Company company;
+	
+	//TODO: Implement
+	private String model_number;
 	private String order_number;
-	private Company company; //TODO: this might be a problem in the API if it doesnt return an ID
-	private Location location;
-	private Location rtd_location; //TODO: Wat?
+	//private Location location;
 	private String image; //This is a URL
 	private CheckoutLocation assigned_to;
 	private String warranty; //This is a string "<n> months"
@@ -58,11 +60,6 @@ public class Asset extends SnipeObject implements Checkoutable {
 			Long tmpid = (Long) obj.get("id");
 			category = new Category(snipe, tmpid.intValue());
 		}
-		if(detail.get("location") != null) {
-			JSONObject obj =  (JSONObject) detail.get("location");
-			Long tmpid = (Long) obj.get("id");
-			location = new Location(snipe, tmpid.intValue());
-		}
 		if(detail.get("rtd_location") != null) {
 			JSONObject obj =  (JSONObject) detail.get("rtd_location");
 			Long tmpid = (Long) obj.get("id");
@@ -73,19 +70,17 @@ public class Asset extends SnipeObject implements Checkoutable {
 			Long tmpid = (Long) obj.get("id");
 			status_label = new StatusLabel(snipe, tmpid.intValue());
 		}
-		/* This needs to get fixed in snipe since it's not a snipeobject type yet
-		if(detail.get("model") != null) {
-			JSONObject obj =  (JSONObject) detail.get("model");
-			Long tmpid = (Long) obj.get("id");
-			status_label = new Model(snipe, tmpid.intValue());
-		}
-		*/ 
 		if(detail.get("supplier") != null) {
 			JSONObject obj =  (JSONObject) detail.get("supplier");
 			Long tmpid = (Long) obj.get("id");
 			supplier = new Supplier(snipe, tmpid.intValue());
 		}
-		//TODO: impl asset_tag, serial, notes, order_number, image, assigned_to, warranty, warrenty_expires, purchase info, last_checkout, and expected_checkin
+		if(detail.get("asset_tag") != null) {
+			asset_tag = (String) detail.get("asset_tag");
+		}
+		if(detail.get("serial") != null) {
+			serial = (String) detail.get("serial");
+		}
 	}
 	
 	public static String getEndpoint() {

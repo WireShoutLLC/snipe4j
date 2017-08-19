@@ -26,16 +26,32 @@ public class StatusLabel extends SnipeObject {
 			color = (String) detail.get("color");
 		}
 		if(detail.get("deployable") != null) {
-			deployable = Boolean.parseBoolean((String) detail.get("deployable"));
+			if(detail.get("deployable") instanceof String) {
+				deployable = Boolean.parseBoolean((String) detail.get("deployable"));
+			} else {
+				deployable = Boolean.parseBoolean(((Long) detail.get("deployable")).intValue() + "");
+			}
 		}
 		if(detail.get("archived") != null) {
-			archived = Boolean.parseBoolean((String) detail.get("archived"));
+			if(detail.get("archived") instanceof String) {
+				archived = Boolean.parseBoolean((String) detail.get("archived"));
+			} else {
+				archived = Boolean.parseBoolean(((Long) detail.get("archived")).intValue() + "");
+			}
 		}
 		if(detail.get("pending") != null) {
-			pending = Boolean.parseBoolean((String) detail.get("pending"));
+			if(detail.get("pending") instanceof String) {
+				pending = Boolean.parseBoolean((String) detail.get("pending"));
+			} else {
+				pending = Boolean.parseBoolean(((Long) detail.get("pending")).intValue() + "");
+			}
 		}
 		if(detail.get("show_in_nav") != null) {
-			show_in_nav = Boolean.parseBoolean((String) detail.get("show_in_nav"));
+			if(detail.get("show_in_nav") instanceof String) {
+				show_in_nav = Boolean.parseBoolean((String) detail.get("show_in_nav"));
+			} else {
+				show_in_nav = Boolean.parseBoolean(((Long) detail.get("show_in_nav")).intValue() + "");
+			}
 		}
 		if(detail.get("type") != null) {
 			String type = (String) detail.get("type");

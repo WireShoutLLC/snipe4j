@@ -1,8 +1,12 @@
 package com.wireshout.snipe4j;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.simple.JSONObject;
 
 public class Accessory extends SnipeObject implements Checkoutable {
@@ -63,6 +67,23 @@ public class Accessory extends SnipeObject implements Checkoutable {
 	
 	public static String getEndpoint() {
 		return ENDPOINT;
+	}
+	
+	public boolean checkout(User user) {
+		return checkout(user, 1);
+	}
+	
+	public boolean checkout(User user, int qty) {
+		List<NameValuePair> fields = new ArrayList<NameValuePair>();
+		fields.add(new BasicNameValuePair("assigned_to", user.getId() + ""));
+		
+		for(int i = 0; i < qty; i++) {
+			super.getSnipe().makePostRequest(ENDPOINT + "/" + this.getId() + "/checkout", fields);
+		}
+		
+		
+		
+		return false;
 	}
 	
 	public boolean delete() {

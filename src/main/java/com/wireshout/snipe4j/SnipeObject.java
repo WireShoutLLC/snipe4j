@@ -25,6 +25,10 @@ abstract class SnipeObject {
 		return null;
 	}
 
+	public SnipeInstance getSnipe() {
+		return snipe;
+	}
+
 	public int getId() {
 		return id;
 	}

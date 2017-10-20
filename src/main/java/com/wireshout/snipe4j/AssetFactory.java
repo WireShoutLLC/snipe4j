@@ -5,7 +5,9 @@ import org.apache.http.message.BasicNameValuePair;
 public class AssetFactory extends SnipeObjectFactory {
 	public AssetFactory(String asset_tag) {
 		super("");
-		super.add(new BasicNameValuePair("asset_tag", asset_tag));
+		if(asset_tag != null) {
+			super.add(new BasicNameValuePair("asset_tag", asset_tag));
+		}
 	}
 	
 	public AssetFactory(String asset_tag, String name) {

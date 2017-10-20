@@ -33,7 +33,7 @@ abstract class SnipeObjectSet extends LinkedHashSet<SnipeObject> {
 	}
 	
 	private void fill() {
-		String rawResponse = snipe.makeGetRequest(endpoint, queryString);
+		String rawResponse = snipe.makeGetRequest(endpoint, queryString + "?limit=1000");
 		JSONParser parser = new JSONParser();
 		try {
 			JSONArray array = (JSONArray) ((JSONObject) parser.parse(rawResponse)).get("rows");

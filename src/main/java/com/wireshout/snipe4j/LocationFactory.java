@@ -17,7 +17,7 @@ public class LocationFactory extends SnipeObjectFactory {
 		super.add(new BasicNameValuePair("city", const_city));
 		super.add(new BasicNameValuePair("state", const_state));
 		super.add(new BasicNameValuePair("country", const_country));
-		//super.add(new BasicNameValuePair("zip", const_address));
+		super.add(new BasicNameValuePair("zip", const_address));
 	}
 	
 	public void setParent(Location parent) {

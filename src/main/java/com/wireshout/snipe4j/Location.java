@@ -14,6 +14,7 @@ public class Location extends SnipeObject {
 	private String city;
 	private String state;
 	private String country;
+	private String zip;
 	private Location parent;
 	
 	//TODO: Implement
@@ -21,7 +22,6 @@ public class Location extends SnipeObject {
 	//private int assets_default;
 	//private ArrayList<Asset> assets;
 	//private ArrayList<Location> children;
-	//UI shows ZIP
 	
 	public Location(SnipeInstance snipe, int id) {
 		super(snipe, id);
@@ -38,8 +38,12 @@ public class Location extends SnipeObject {
 		if(detail.get("country") != null) {
 			country = (String) detail.get("country");
 		}
-		if(detail.get("parent_id") != null) {
-			Long tmpid = (Long) detail.get("parent_id");
+		if(detail.get("zip") != null) {
+			zip = (String) detail.get("zip");
+		}
+		if(detail.get("parent") != null) {
+			JSONObject obj =  (JSONObject) detail.get("parent");
+			Long tmpid = (Long) obj.get("id");
 			parent = new Location(snipe, tmpid.intValue());
 		}
 	}

@@ -46,13 +46,13 @@ public class StatusLabel extends SnipeObject {
 				pending = Boolean.parseBoolean(((Long) detail.get("pending")).intValue() + "");
 			}
 		}
-		if(detail.get("show_in_nav") != null) {
+		/*if(detail.get("show_in_nav") != null) {
 			if(detail.get("show_in_nav") instanceof String) {
 				show_in_nav = Boolean.parseBoolean((String) detail.get("show_in_nav"));
 			} else {
 				show_in_nav = Boolean.parseBoolean(((Long) detail.get("show_in_nav")).intValue() + "");
 			}
-		}
+		}*/
 		if(detail.get("type") != null) {
 			String type = (String) detail.get("type");
 			if(type.equals("undeployable")) {
